@@ -1,15 +1,23 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { initializeApp, getApps, cert, ServiceAccount } from 'firebase-admin/app';
 import { getFirestore, Firestore } from 'firebase-admin/firestore';
-import * as serviceAccount from '../../firebase-key.json';
+import { getAuth, Auth } from 'firebase-admin/auth';
 
 @Injectable()
 export class FirebaseService implements OnModuleInit {
   onModuleInit() {
     // Initialize the Firebase admin app only if there are no initialized apps
     if (getApps().length === 0) {
+      let serviceAccountConfig: ServiceAccount;
+      
+      if (process.env.FIREBASE_CREDENTIALS) {
+        serviceAccountConfig = JSON.parse(process.env.FIREBASE_CREDENTIALS);
+      } else {
+        serviceAccountConfig = require('../../firebase-key.json');
+      }
+
       initializeApp({
-        credential: cert(serviceAccount as ServiceAccount),
+        credential: cert(serviceAccountConfig),
       });
     }
   }
@@ -19,5 +27,12 @@ export class FirebaseService implements OnModuleInit {
    */
   getFirestore(): Firestore {
     return getFirestore();
+  }
+
+  /**
+   * Returns the Firebase Auth instance
+   */
+  getAuth(): Auth {
+    return getAuth();
   }
 }

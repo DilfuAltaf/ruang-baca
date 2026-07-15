@@ -83,4 +83,28 @@ export class LoansService {
 
     return { message: 'Book returned successfully', loanId };
   }
+
+  async getAllLoans() {
+    const firestore = this.firebaseService.getFirestore();
+    const snapshot = await firestore.collection('loans').get();
+    
+    return snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+  }
+
+  async getStudentActiveLoans(nis: string) {
+    const firestore = this.firebaseService.getFirestore();
+    const snapshot = await firestore
+      .collection('loans')
+      .where('memberId', '==', nis)
+      .where('status', '==', 'DIPINJAM')
+      .get();
+      
+    return snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+  }
 }
