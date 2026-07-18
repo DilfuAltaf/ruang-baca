@@ -68,7 +68,6 @@ export default function BooksPage() {
   return (
     <div className="min-h-screen bg-[#FAF7F2] p-10">
       {/* Hero */}
-      {/* Hero */}
       <div
         className="
     relative
@@ -113,43 +112,107 @@ export default function BooksPage() {
         <div className="relative z-10">
           <p
             className="
-        uppercase
-        tracking-widest
-        text-sm
-        text-[#F5E6D3]
-        font-semibold
-      "
+  uppercase
+  tracking-widest
+  text-sm
+  text-[#F5E6D3]
+  font-semibold
+"
           >
-            Perpustakaan Sekolah
+            Sistem Informasi Perpustakaan Sekolah
           </p>
 
-          <h1
-            className="
-        text-4xl
-        md:text-6xl
-        font-bold
-        mt-3
-        leading-tight
-      "
-          >
-            Jelajahi Dunia
+          <h1 className="text-4xl md:text-6xl font-bold mt-3 leading-tight">
+            Sistem Informasi
             <br />
-            Melalui Buku
+            Perpustakaan Sekolah
           </h1>
 
-          <p
-            className="
-        mt-5
-        text-lg
-        md:text-xl
-        text-[#FFF4E6]
-        max-w-2xl
-      "
-          >
-            Temukan koleksi buku terbaik untuk belajar, membaca, dan menambah
-            wawasan setiap hari.
+          <p className="mt-5 text-lg md:text-xl text-[#FFF4E6] max-w-2xl">
+            Platform digital untuk mendukung pengelolaan perpustakaan, layanan
+            peminjaman buku, serta akses informasi koleksi bagi seluruh civitas
+            sekolah.
           </p>
         </div>
+      </div>
+
+      <div
+        className="
+  bg-white
+  rounded-3xl
+  p-8
+  shadow-lg
+  mb-10
+  border-l-8
+  border-[#D4A373]
+"
+      >
+        <h2 className="text-2xl font-bold text-[#8B5E3C]">
+          Pengumuman Perpustakaan
+        </h2>
+
+        <ul className="mt-4 space-y-2 text-gray-600">
+          <li>📚 Maksimal peminjaman 3 buku.</li>
+          <li>⏰ Durasi peminjaman selama 7 hari.</li>
+          <li>💰 Keterlambatan dikenakan denda sesuai aturan.</li>
+          <li>🏫 Buku hanya untuk warga sekolah.</li>
+        </ul>
+      </div>
+
+      <div className="grid md:grid-cols-3 gap-5 mb-10">
+        <div className="bg-white rounded-3xl p-6 shadow-lg">
+          <div className="text-5xl">📚</div>
+          <h2 className="text-xl font-bold text-[#8B5E3C] mt-4">
+            Koleksi Lengkap
+          </h2>
+
+          <p className="text-gray-500 mt-2">
+            Ribuan koleksi buku pelajaran dan literatur tersedia.
+          </p>
+        </div>
+
+        <div className="bg-white rounded-3xl p-6 shadow-lg">
+          <div className="text-5xl">💻</div>
+
+          <h2 className="text-xl font-bold text-[#8B5E3C] mt-4">
+            Layanan Digital
+          </h2>
+
+          <p className="text-gray-500 mt-2">
+            Ajukan peminjaman buku secara online dengan mudah.
+          </p>
+        </div>
+
+        <div className="bg-white rounded-3xl p-6 shadow-lg">
+          <div className="text-5xl">🏫</div>
+
+          <h2 className="text-xl font-bold text-[#8B5E3C] mt-4">
+            Literasi Sekolah
+          </h2>
+
+          <p className="text-gray-500 mt-2">
+            Mendukung budaya membaca di lingkungan sekolah.
+          </p>
+        </div>
+      </div>
+
+      <div
+        className="
+    bg-gradient-to-r
+    from-[#8B5E3C]
+    to-[#D4A373]
+    rounded-3xl
+    p-8
+    text-white
+    mb-10
+    shadow-xl
+  "
+      >
+        <h2 className="text-3xl font-bold">Jam Operasional Perpustakaan</h2>
+
+        <p className="mt-4 text-lg">Senin - Jumat : 07.00 - 15.00 WIB</p>
+
+        <p className="mt-2 text-lg">Sabtu : 08.00 - 12.00 WIB</p>
       </div>
 
       {/* Search */}
@@ -236,6 +299,36 @@ export default function BooksPage() {
         </button>
       </div>
 
+      <div className="grid md:grid-cols-4 gap-5 mb-10">
+        <div className="bg-white rounded-2xl p-6 shadow">
+          <h3 className="text-gray-500">Total Buku</h3>
+          <h1 className="text-4xl font-bold text-[#8B5E3C]">{books.length}</h1>
+        </div>
+
+        <div className="bg-white rounded-2xl p-6 shadow">
+          <h3 className="text-gray-500">Kategori</h3>
+          <h1 className="text-4xl font-bold text-[#8B5E3C]">10+</h1>
+        </div>
+
+        <div className="bg-white rounded-2xl p-6 shadow">
+          <h3 className="text-gray-500">Peminjaman</h3>
+          <h1 className="text-4xl font-bold text-[#8B5E3C]">150+</h1>
+        </div>
+
+        <div className="bg-white rounded-2xl p-6 shadow">
+          <h3 className="text-gray-500">Status</h3>
+          <h1 className="text-4xl font-bold text-green-500">Online</h1>
+        </div>
+      </div>
+
+      <div className="mb-8">
+        <h2 className="text-4xl font-bold text-[#8B5E3C]">Koleksi Buku</h2>
+
+        <p className="text-gray-500 mt-2">
+          Temukan buku yang ingin Anda pinjam dari perpustakaan.
+        </p>
+      </div>
+
       {/* Books */}
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
         {filteredBooks.map((book) => (
@@ -304,7 +397,8 @@ export default function BooksPage() {
               >
                 Detail Buku
               </Link>
-              <button
+              <Link
+                href={`/borrow/${book.id}`}
                 className="
     block
     mt-3
@@ -318,8 +412,8 @@ export default function BooksPage() {
     transition
   "
               >
-                Pinjam Buku
-              </button>
+                Ajukan Peminjaman
+              </Link>
             </div>
           </div>
         ))}
