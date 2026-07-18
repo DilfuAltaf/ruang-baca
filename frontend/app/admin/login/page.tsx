@@ -9,22 +9,29 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     setLoading(true);
 
     setTimeout(() => {
+      if (email !== "admin@ruangbaca.com" || password !== "admin123") {
+        alert("Email atau password admin salah!");
+
+        setLoading(false);
+        return;
+      }
+
       localStorage.setItem(
         "user",
         JSON.stringify({
-          name: "Dilfu Altaf",
+          name: "Admin Ruang Baca",
           email,
-          role: "user",
+          role: "admin",
         }),
       );
 
-      window.location.href = "/dashboard";
+      window.location.href = "/admin/dashboard";
     }, 1000);
   };
 
@@ -34,7 +41,7 @@ export default function LoginPage() {
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-[#8B5E3C]">Ruang Baca</h1>
 
-          <p className="text-gray-500 mt-2">Library Management System</p>
+          <p className="text-gray-500 mt-2">Admin Portal Ruang Baca</p>
         </div>
 
         <div className="flex justify-center mb-5">
@@ -51,7 +58,7 @@ export default function LoginPage() {
       shadow-lg
     "
           >
-            📖
+            🏛️
           </div>
         </div>
 
@@ -62,7 +69,9 @@ export default function LoginPage() {
 
             <input
               type="email"
-              placeholder="Masukkan email"
+              placeholder="Masukkan email admin"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="
     w-full
     p-4
@@ -73,6 +82,7 @@ export default function LoginPage() {
     focus:ring-[#D4A373]
     outline-none
   "
+              required
             />
           </div>
 
@@ -105,22 +115,21 @@ export default function LoginPage() {
     shadow-lg
   "
           >
-            {loading ? "Memproses..." : "Masuk ke Dashboard"}
+            {loading ? "Memproses..." : "Login Admin"}
           </button>
         </form>
+        <div className="mt-5 p-4 bg-[#FAF7F2] rounded-xl text-sm">
+          <p className="font-semibold text-[#8B5E3C]">Demo Admin</p>
 
-        <div className="mt-6 text-center text-sm text-gray-500 space-y-1">
-          <p>✓ 150+ Koleksi Buku</p>
-          <p>✓ Dashboard Personal</p>
-          <p>✓ Sistem Peminjaman Modern</p>
+          <p>Email: admin@ruangbaca.com</p>
+
+          <p>Password: admin123</p>
         </div>
 
-        <div className="mt-6 text-center">
-          <p className="text-gray-500">Belum memiliki akun?</p>
-
-          <Link href="/register" className="font-semibold text-[#8B5E3C]">
-            Buat akun sekarang
-          </Link>
+        <div className="mt-6 text-center text-sm text-gray-500 space-y-1">
+          <p>✓ Kelola Data Buku</p>
+          <p>✓ Approve Peminjaman</p>
+          <p>✓ Kelola Pembaca</p>
         </div>
       </div>
     </div>

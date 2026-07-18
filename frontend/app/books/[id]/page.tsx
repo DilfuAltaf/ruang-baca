@@ -1,48 +1,144 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { ArrowLeft, Star, BookOpen } from "lucide-react";
 
-const books = [
-  {
-    id: "1",
-    title: "Clean Code",
-    author: "Robert C. Martin",
-    description: "A Handbook of Agile Software Craftsmanship.",
-  },
-  {
-    id: "2",
-    title: "Atomic Habits",
-    author: "James Clear",
-    description: "An Easy & Proven Way to Build Good Habits.",
-  },
-  {
-    id: "3",
-    title: "Deep Work",
-    author: "Cal Newport",
-    description: "Rules for Focused Success in a Distracted World.",
-  },
-];
-
-export default function DetailBook() {
+export default function DetailBookPage() {
   const params = useParams();
+  const router = useRouter();
 
-  const book = books.find((item) => item.id === params.id);
+  const [book, setBook] = useState<any>(null);
+
+  useEffect(() => {
+    const books = JSON.parse(localStorage.getItem("books") || "[]");
+
+    const selectedBook = books.find((b: any) => b.id === Number(params.id));
+
+    setBook(selectedBook);
+  }, [params.id]);
 
   if (!book) {
-    return <h1>Buku tidak ditemukan.</h1>;
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <h1 className="text-3xl font-bold">Buku Tidak Ditemukan</h1>
+      </div>
+    );
   }
 
   return (
-    <div className="p-10">
-      <h1 className="text-4xl font-bold">{book.title}</h1>
+    <div className="min-h-screen bg-[#FAF7F2] p-10">
+      <div className="max-w-7xl mx-auto">
+        {/* Back */}
+        <button
+          onClick={() => router.push("/books")}
+          className="
+            flex
+            items-center
+            gap-2
+            mb-8
+            text-[#8B5E3C]
+            font-medium
+          "
+        >
+          <ArrowLeft size={18} />
+          Kembali ke Koleksi Buku
+        </button>
 
-      <p className="mt-4 text-lg">Penulis: {book.author}</p>
+        {/* Card */}
+        <div
+          className="
+            bg-white
+            rounded-3xl
+            shadow-xl
+            overflow-hidden
+            grid
+            lg:grid-cols-2
+          "
+        >
+          {/* Cover */}
+          <div className="p-10 flex justify-center">
+            <img
+              src={book.image}
+              alt={book.title}
+              className="
+                h-[550px]
+                rounded-3xl
+                object-cover
+                shadow-2xl
+              "
+            />
+          </div>
 
-      <p className="mt-4 text-gray-600">{book.description}</p>
+          {/* Content */}
+          <div className="p-10">
+            <span
+              className="
+                px-4
+                py-2
+                rounded-full
+                bg-[#D4A373]
+                text-white
+              "
+            >
+              {book.category}
+            </span>
 
-      <button className="mt-6 bg-blue-500 text-white px-5 py-2 rounded-lg">
-        Pinjam Buku
-      </button>
+            <h1 className="text-5xl font-bold mt-5">{book.title}</h1>
+
+            <p className="text-xl text-gray-500 mt-3">{book.author}</p>
+
+            <div className="flex items-center gap-2 mt-5">
+              <Star className="text-yellow-500" />
+              <span>{book.rating}</span>
+            </div>
+
+            <div className="mt-10">
+              <h2 className="text-2xl font-semibold">Deskripsi</h2>
+
+              <p className="text-gray-600 mt-4 leading-8">{book.description}</p>
+            </div>
+
+            {/* Info */}
+            <div className="grid grid-cols-2 gap-5 mt-10">
+              <div className="bg-[#FAF7F2] p-5 rounded-2xl">
+                <BookOpen size={24} />
+
+                <h3 className="font-semibold mt-2">Kategori</h3>
+
+                <p>{book.category}</p>
+              </div>
+
+              <div className="bg-[#FAF7F2] p-5 rounded-2xl">
+                <Star size={24} />
+
+                <h3 className="font-semibold mt-2">Rating</h3>
+
+                <p>{book.rating}</p>
+              </div>
+            </div>
+
+            {/* Button */}
+            <button
+              onClick={() => router.push(`/borrow/${book.id}`)}
+              className="
+                w-full
+                mt-10
+                bg-[#8B5E3C]
+                text-white
+                py-5
+                rounded-2xl
+                text-lg
+                font-semibold
+                hover:bg-[#70492D]
+                transition
+              "
+            >
+              Pinjam Buku
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
